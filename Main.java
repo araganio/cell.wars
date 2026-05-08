@@ -1,3 +1,15 @@
+
+/**
+ * Clase principal del programa.
+ * 
+ * Se encarga de:
+ * - Inicializar la ventana del juego
+ * - Configurar el panel principal (GamePanel)
+ * - Iniciar el hilo del juego (Game Loop)
+ * 
+ * Representa el punto de entrada de la aplicación.
+ */
+
 import javax.swing.JFrame;
 
 public class Main {
