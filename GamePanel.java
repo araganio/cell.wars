@@ -38,13 +38,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     Thread gameThread;
 
-    // 🎯 Jugador
+    //  Jugador
     Cell player;
 
-    // 🤖 Bots
+    //  Bots
     ArrayList<Cell> bots = new ArrayList<>();
 
-    // 🍔 Comida
+    //  Comida
     ArrayList<Food> foods = new ArrayList<>();
 
     public GamePanel() {
@@ -53,15 +53,15 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addMouseMotionListener(mouseH);
 
-        // 🟢 Crear jugador (con Strategy)
+        //  Crear jugador (con Strategy)
         player = EntityFactory.createPlayer(mouseH);
 
-        // 🔴 Crear bots
+        //  Crear bots
         for (int i = 0; i < 5; i++) {
             bots.add(EntityFactory.createBot());
         }
 
-        // 🍔 Crear comida
+        //  Crear comida
         for (int i = 0; i < 30; i++) {
             foods.add(EntityFactory.createFood(WIDTH, HEIGHT));
         }
@@ -97,18 +97,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    // 🔄 Lógica del juego
+    //  Lógica del juego
     public void update() {
 
-        // 🟢 Jugador
+        //  Jugador
         player.update();
 
-        // 🔴 Bots
+        //  Bots
         for (Cell bot : bots) {
             bot.update();
         }
 
-        // 🍔 Colisiones con comida
+        //  Colisiones con comida
         for (int i = 0; i < foods.size(); i++) {
 
             Food food = foods.get(i);
@@ -134,24 +134,24 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    // 🎨 Render
+    //  Render
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
 
-        // 🍔 Dibujar comida
+        //  Dibujar comida
         for (Food food : foods) {
             food.draw(g2);
         }
 
-        // 🔴 Dibujar bots
+        //  Dibujar bots
         for (Cell bot : bots) {
             bot.draw(g2);
         }
 
-        // 🟢 Dibujar jugador
+        //  Dibujar jugador
         player.draw(g2);
 
         g2.dispose();

@@ -31,7 +31,7 @@ public class Cell extends Entity {
     private Color color;
     private double speed = 2.5;
 
-    // 🧠 Strategy de movimiento
+    //  Strategy de movimiento
     private MovementStrategy movementStrategy;
 
     public Cell(double x, double y, double size, Color color) {
