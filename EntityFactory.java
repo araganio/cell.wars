@@ -14,6 +14,7 @@
  */
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -44,20 +45,20 @@ public class EntityFactory {
     }
 
     /**
-     * Crea un bot con movimiento aleatorio
+     * Crea un bot con movimiento 
      */
-    public static Cell createBot() {
+    public static Cell createBot(ArrayList<Food> foods, ArrayList<Cell> bots, Cell player) {
 
-        int x = random.nextInt(800);
-        int y = random.nextInt(600);
+    int x = random.nextInt(800);
+    int y = random.nextInt(600);
 
-        Cell bot = new Cell(x, y, 40, Color.RED);
+    Cell bot = new Cell(x, y, 40, Color.RED);
 
-        // Strategy: movimiento automático
-        bot.setMovementStrategy(new RandomMovement());
+    // IA inteligente
+    bot.setMovementStrategy(new SmartBotMovement(foods, bots, player));
 
-        return bot;
-    }
+    return bot;
+}
 
     /**
      * Crea comida en posición aleatoria

@@ -21,7 +21,7 @@ public class Food extends Entity {
         g2.fillOval((int)x, (int)y, (int)size, (int)size);
     }
 
-    // 🔓 Getters necesarios (encapsulación)
+    //git status Getters necesarios (encapsulación)
     public double getX() {
         return x;
     }

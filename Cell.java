@@ -21,65 +21,83 @@ import java.awt.Graphics2D;
  * Representa una célula en el juego (jugador o bot).
  * 
  * Se encarga de:
- * - Mantener su posición y tamaño
- * - Ejecutar su estrategia de movimiento (Strategy)
+ * - Mantener posición y tamaño
+ * - Ejecutar movimiento (Strategy Pattern)
  * - Dibujarse en pantalla
  * - Crecer al consumir comida
  */
 public class Cell extends Entity {
 
     private Color color;
-    private double speed = 2.5;
 
-    //  Strategy de movimiento
+    //  Velocidad base
+    private double baseSpeed = 20;
+
+    //  Estrategia de movimiento
     private MovementStrategy movementStrategy;
 
     public Cell(double x, double y, double size, Color color) {
+
         super(x, y, size);
+
         this.color = color;
     }
 
     /**
-     * Asigna la estrategia de movimiento (Strategy Pattern)
+     * Asigna una estrategia de movimiento
      */
     public void setMovementStrategy(MovementStrategy strategy) {
+
         this.movementStrategy = strategy;
     }
 
     /**
-     * Ejecuta la estrategia de movimiento actual
+     * Ejecuta movimiento usando Strategy
      */
     public void move() {
+
         if (movementStrategy != null) {
             movementStrategy.move(this);
         }
     }
 
     /**
-     * Actualización de la célula en cada frame
+     * Actualización por frame
      */
     @Override
     public void update() {
+
         move();
     }
 
     /**
-     * Dibuja la célula en pantalla
+     * Dibuja la célula
      */
     @Override
     public void draw(Graphics2D g2) {
+
         g2.setColor(color);
-        g2.fillOval((int) x, (int) y, (int) size, (int) size);
+
+        g2.fillOval(
+                (int) x,
+                (int) y,
+                (int) size,
+                (int) size
+        );
     }
 
     /**
-     * Hace crecer la célula al consumir comida
+     * Hace crecer la célula
      */
     public void grow(double amount) {
-        size += amount;
+
+        size += amount * 0.5;
     }
 
-    // 🔓 Getters necesarios (encapsulación)
+    // =========================
+    // GETTERS
+    // =========================
+
     public double getX() {
         return x;
     }
@@ -92,13 +110,39 @@ public class Cell extends Entity {
         return size;
     }
 
+    /**
+     *  Velocidad dinámica según tamaño
+     */
     public double getSpeed() {
+
+        double speed = baseSpeed / Math.sqrt(size);
+
+        // velocidad mínima
+        if (speed < 1.2) {
+            speed = 1.2;
+        }
+
         return speed;
     }
 
-    // 🔧 Permite que las estrategias modifiquen la posición
+    // =========================
+    // SETTERS
+    // =========================
+
+    /**
+     * Permite mover la célula
+     */
     public void setPosition(double x, double y) {
+
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Permite cambiar tamaño
+     */
+    public void setSize(double size) {
+
+        this.size = size;
     }
 }
